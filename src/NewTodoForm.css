@@ -1,3 +1,39 @@
 .NewTodoForm {
-  background-color: red;
+  font-size: 0.8em;
+  margin: 0;
+}
+
+.NewTodoForm h2 {
+  margin: 0.5em 20px;
+}
+
+.NewTodoForm form {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 20px;
+}
+
+.NewTodoForm form input {
+  height: 3em;
+}
+
+.NewTodoForm form input[type='text'] {
+  flex-grow: 2;
+  min-width: 60%;
+  padding: 1em 2em;
+  box-sizing: border-box;
+}
+
+.NewTodoForm form input[type='submit'] {
+  color: white;
+  background-color: rgb(241, 102, 22);
+  border: 1px solid white;
+  margin: 0;
+  box-sizing: border-box;
+  flex-grow: 1;
+}
+
+.NewTodoForm form input[type='text']:focus {
+  box-shadow: 0px 0px -2px -2px blue;
 }

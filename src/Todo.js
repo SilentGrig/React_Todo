@@ -51,7 +51,7 @@ class Todo extends Component {
     if(this.state.isEditing) {
       output = (
         <>
-          <form onSubmit={this.handleSubmit}>
+          <form className="Todo-Editing" onSubmit={this.handleSubmit}>
             <input 
               name="text" 
               type="text" 
@@ -71,16 +71,18 @@ class Todo extends Component {
           >
           {this.props.text}
           </p>
-          <button onClick={this.handleEdit}>Edit</button>
-          <button onClick={this.handleDelete}>delete</button>
+          <div>
+            <i class="fas fa-edit" onClick={this.handleEdit}></i>
+            <i class="fas fa-trash-alt" onClick={this.handleDelete}></i>
+          </div>
         </>
       );
     };
 
     return (
-      <div>
+      <li className="Todo">
         {output}
-      </div>
+      </li>
     );
   }
 }

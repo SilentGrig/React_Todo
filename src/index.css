@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(12, 156, 182, 0.596);
+  color: white;
+  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.253);
+  font-family: 'Chilanka', cursive;
 }
 
 code {

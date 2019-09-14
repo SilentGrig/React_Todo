@@ -22,15 +22,19 @@ class NewTodoForm extends Component {
 
   render() {
     return (
-      <form className="NewTodoForm" onSubmit={this.handleSubmit}>
-        <input 
-        type="text" 
-        name="text"
-        value={this.state.text}
-        onChange={this.handleChange}
-        />
-        <input type="submit" value="Add Todo" />
-      </form>
+      <div className="NewTodoForm">
+        <h2>New Todo</h2>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            name="text"
+            value={this.state.text}
+            onChange={this.handleChange}
+          />
+          <input type="submit" value="Add Todo" />
+        </form>
+      </div>
+      
     );
   }
 
