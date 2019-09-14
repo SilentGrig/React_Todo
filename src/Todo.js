@@ -104,7 +104,8 @@ class Todo extends Component {
       );
     };
 
-    const buildClassName = "Todo" + (this.isDateOverdue() ? " Todo-Overdue" : "");
+    const buildClassName = "Todo" + 
+      (this.isDateOverdue() && !this.props.complete ? " Todo-Overdue" : "");
 
     return (
       <li className={buildClassName}>
