@@ -51,13 +51,14 @@ class TodoList extends Component {
     })
   }
 
-  updateTodo(id, text) {
+  updateTodo(id, text, date) {
     this.setState({
       todos: this.state.todos.map(todo => {
         if(todo.id === id) {
           return {
             ...todo,
-            text: text
+            text: text ? text : todo.text,
+            date: date ? date : todo.date
           }
         }
         return todo;
@@ -73,6 +74,7 @@ class TodoList extends Component {
         key={todo.id}
         id={todo.id}
         text={todo.text}
+        date={todo.date}
         complete={todo.complete}
         toggleTodo={this.toggleTodo}
         removeTodo={this.removeTodo}

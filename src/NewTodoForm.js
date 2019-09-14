@@ -5,19 +5,36 @@ import uuid from "uuid/v4";
 class NewTodoForm extends Component {
   constructor() {
     super();
-    this.state = { text: ""};
+    this.state = { 
+        text: "",
+        date: ""
+      };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeText = this.handleChangeText.bind(this);
+    this.handleChangeDate = this.handleChangeDate.bind(this);
   }
 
-  handleChange(e) {
-    this.setState({text: e.target.value});
+  handleChangeText(e) {
+    this.setState({
+      ...this.state,
+      text: e.target.value
+    });
+  }
+
+  handleChangeDate(e) {
+    this.setState({
+      ...this.state,
+      date: e.target.value
+    });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     this.props.addTodo({...this.state, id: uuid() });
-    this.setState({text: ""});
+    this.setState({
+      text: "",
+      date: ""
+    });
   }
 
   render() {
@@ -29,7 +46,15 @@ class NewTodoForm extends Component {
             type="text"
             name="text"
             value={this.state.text}
-            onChange={this.handleChange}
+            onChange={this.handleChangeText}
+            required
+          />
+          <input 
+            type="date"
+            name="date"
+            value={this.state.date}
+            onChange={this.handleChangeDate}
+            required
           />
           <input type="submit" value="Add Todo" />
         </form>

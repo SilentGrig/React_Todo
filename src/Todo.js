@@ -6,13 +6,16 @@ class Todo extends Component {
     super();
     this.state = {
       isEditing: false,
-      text: props.text
+      text: props.text,
+      date: props.date
     }
     this.handleToggle = this.handleToggle.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeText = this.handleChangeText.bind(this);
+    this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.isDateOverdue = this.isDateOverdue.bind(this);
   }
 
   handleToggle(e) {
@@ -30,20 +33,36 @@ class Todo extends Component {
     this.setState({isEditing: true});
   }
 
-  handleChange(e) {
+  handleChangeText(e) {
     this.setState({
       ...this.state,
       text: e.target.value
     })
   }
 
+  handleChangeDate(e) {
+    this.setState({
+      ...this.state,
+      date: e.target.value
+    })
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    this.props.updateTodo(this.props.id, this.state.text);
+    this.props.updateTodo(this.props.id, this.state.text, this.state.date);
     this.setState({
       ...this.state,
       isEditing: false
     });
+  }
+
+  formateDate(date) {
+    let formatedDate = new Date(date);
+    return formatedDate.toLocaleDateString();
+  }
+
+  isDateOverdue() {
+    return new Date(this.props.date) < new Date();
   }
 
   render() {
@@ -56,7 +75,13 @@ class Todo extends Component {
               name="text" 
               type="text" 
               value={this.state.text}
-              onChange={this.handleChange}
+              onChange={this.handleChangeText}
+            />
+            <input 
+              name="date"
+              type="date"
+              value={this.state.date}
+              onChange={this.handleChangeDate}
             />
             <input type="submit" value="save" />
           </form>
@@ -69,7 +94,7 @@ class Todo extends Component {
             className={this.props.complete ? "Todo-Complete" : ""}
             onClick={this.handleToggle}
           >
-          {this.props.text}
+            {this.props.text} - {this.formateDate(this.props.date)}
           </p>
           <div>
             <i class="fas fa-edit" onClick={this.handleEdit}></i>
@@ -79,8 +104,10 @@ class Todo extends Component {
       );
     };
 
+    const buildClassName = "Todo" + (this.isDateOverdue() ? " Todo-Overdue" : "");
+
     return (
-      <li className="Todo">
+      <li className={buildClassName}>
         {output}
       </li>
     );

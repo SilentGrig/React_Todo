@@ -20,7 +20,12 @@
 
 .NewTodoForm form input[type='text'] {
   flex-grow: 2;
-  min-width: 60%;
+  padding: 1em 2em;
+  box-sizing: border-box;
+}
+
+.NewTodoForm form input[type='date'] {
+  flex-grow: 1;
   padding: 1em 2em;
   box-sizing: border-box;
 }
