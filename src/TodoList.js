@@ -6,12 +6,16 @@ import NewTodoForm from './NewTodoForm';
 class TodoList extends Component {
   constructor() {
     super();
-    this.state = {
-      todos: [
-        {id: "1", text: "test", complete: false}, 
-        {id: "2", text: "another test", complete: true}
-      ]
-    };
+    const storedTodos = localStorage.getItem("todo-list");
+    if(storedTodos) {
+      this.state = {
+        ...JSON.parse(storedTodos)
+      }
+    } else {
+      this.state = {
+        todos: []
+      }
+    }
     this.addTodo = this.addTodo.bind(this);
     this.toggleTodo = this.toggleTodo.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
@@ -62,6 +66,8 @@ class TodoList extends Component {
   }
 
   render() {
+    localStorage.setItem("todo-list", JSON.stringify(this.state));
+
     const todos = this.state.todos.map((todo) => (
       <Todo
         key={todo.id}
