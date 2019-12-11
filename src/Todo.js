@@ -6,16 +6,13 @@ class Todo extends Component {
     super();
     this.state = {
       isEditing: false,
-      text: props.text,
-      date: props.date
+      content: props.content
     }
     this.handleToggle = this.handleToggle.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleChangeText = this.handleChangeText.bind(this);
-    this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.isDateOverdue = this.isDateOverdue.bind(this);
   }
 
   handleToggle(e) {
@@ -40,29 +37,13 @@ class Todo extends Component {
     })
   }
 
-  handleChangeDate(e) {
-    this.setState({
-      ...this.state,
-      date: e.target.value
-    })
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-    this.props.updateTodo(this.props.id, this.state.text, this.state.date);
+    this.props.updateTodo(this.props.id, this.state.content);
     this.setState({
       ...this.state,
       isEditing: false
     });
-  }
-
-  formateDate(date) {
-    let formatedDate = new Date(date);
-    return formatedDate.toLocaleDateString();
-  }
-
-  isDateOverdue() {
-    return new Date(this.props.date) < new Date();
   }
 
   render() {
@@ -72,16 +53,10 @@ class Todo extends Component {
         <>
           <form className="Todo-Editing" onSubmit={this.handleSubmit}>
             <input 
-              name="text" 
+              name="content" 
               type="text" 
-              value={this.state.text}
+              value={this.state.content}
               onChange={this.handleChangeText}
-            />
-            <input 
-              name="date"
-              type="date"
-              value={this.state.date}
-              onChange={this.handleChangeDate}
             />
             <input type="submit" value="save" />
           </form>
@@ -94,21 +69,18 @@ class Todo extends Component {
             className={this.props.complete ? "Todo-Complete" : ""}
             onClick={this.handleToggle}
           >
-            {this.props.text} - {this.formateDate(this.props.date)}
+            {this.props.content}
           </p>
           <div>
-            <i class="fas fa-edit" onClick={this.handleEdit}></i>
-            <i class="fas fa-trash-alt" onClick={this.handleDelete}></i>
+            <i className="fas fa-edit" onClick={this.handleEdit}></i>
+            <i className="fas fa-trash-alt" onClick={this.handleDelete}></i>
           </div>
         </>
       );
     };
 
-    const buildClassName = "Todo" + 
-      (this.isDateOverdue() && !this.props.complete ? " Todo-Overdue" : "");
-
     return (
-      <li className={buildClassName}>
+      <li className="Todo">
         {output}
       </li>
     );

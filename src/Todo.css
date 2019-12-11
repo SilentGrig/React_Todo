@@ -24,13 +24,6 @@
 }
 
 .Todo-Editing input[type='text'] {
-  flex-grow: 2;
-  padding: 1em 2em;
-  box-sizing: border-box;
-}
-
-.Todo-Editing input[type='date'] {
-  flex-grow: 1;
   padding: 1em 2em;
   box-sizing: border-box;
 }
@@ -42,8 +35,4 @@
   margin: 0;
   box-sizing: border-box;
   flex-grow: 1;
-}
-
-.Todo-Overdue {
-  background-color: rgba(240, 27, 27, 0.863);
 }

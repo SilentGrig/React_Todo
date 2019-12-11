@@ -2,34 +2,36 @@ import React, { Component } from 'react';
 import './TodoList.css';
 import Todo from './Todo';
 import NewTodoForm from './NewTodoForm';
+import todoService from './services/todoService';
 
 class TodoList extends Component {
   constructor() {
     super();
-    const storedTodos = localStorage.getItem("todo-list");
-    if(storedTodos) {
-      this.state = {
-        ...JSON.parse(storedTodos)
-      }
-    } else {
-      this.state = {
-        todos: []
-      }
-    }
+    this.state = {
+      todos: []
+    } 
     this.addTodo = this.addTodo.bind(this);
     this.toggleTodo = this.toggleTodo.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
     this.updateTodo = this.updateTodo.bind(this);
+    this.updateTodos = this.updateTodos.bind(this);
   }
 
-  addTodo(todo) {
-    const newTodo = {
-      ...todo,
-      complete: false
-    };
-    this.setState({
-      todos: [...this.state.todos, newTodo]
+  componentDidMount() {
+    this.updateTodos();
+  }
+
+  updateTodos() {
+    todoService.getAllTodos().then(data => {
+      this.setState({
+        todos: data}
+        );
     });
+  }
+
+  addTodo(content) {
+    todoService.addTodo(content);
+    this.updateTodos();
   }
 
   toggleTodo(id) {
@@ -46,19 +48,20 @@ class TodoList extends Component {
   }
 
   removeTodo(id) {
+    todoService.deleteTodo(id);
     this.setState({
       todos: this.state.todos.filter(todo => todo.id !== id)
     })
+
   }
 
-  updateTodo(id, text, date) {
+  updateTodo(id, content) {
     this.setState({
       todos: this.state.todos.map(todo => {
         if(todo.id === id) {
           return {
             ...todo,
-            text: text ? text : todo.text,
-            date: date ? date : todo.date
+            content: content ? content : todo.content
           }
         }
         return todo;
@@ -67,14 +70,11 @@ class TodoList extends Component {
   }
 
   render() {
-    localStorage.setItem("todo-list", JSON.stringify(this.state));
-
     const todos = this.state.todos.map((todo) => (
       <Todo
         key={todo.id}
         id={todo.id}
-        text={todo.text}
-        date={todo.date}
+        content={todo.content}
         complete={todo.complete}
         toggleTodo={this.toggleTodo}
         removeTodo={this.removeTodo}
