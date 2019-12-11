@@ -14,7 +14,7 @@
   margin: 0 1em;
 }
 
-.Todo-Complete {
+.Todo-Completed {
   text-decoration: line-through;
   opacity: 0.5;
 }

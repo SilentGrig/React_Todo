@@ -30,16 +30,16 @@ class TodoList extends Component {
   }
 
   addTodo(content) {
-    todoService.addTodo(content);
-    this.updateTodos();
+    todoService.addTodo(content).then(this.updateTodos);
   }
 
   toggleTodo(id) {
     const newTodos = this.state.todos.map(todo => {
       if(todo.id === id) {
+        todoService.updateTodo(id, todo.content, !todo.completed);
         return {
           ...todo,
-          complete: !todo.complete
+          completed: !todo.completed
         }
       }
       return todo;
@@ -59,6 +59,7 @@ class TodoList extends Component {
     this.setState({
       todos: this.state.todos.map(todo => {
         if(todo.id === id) {
+          todoService.updateTodo(id, content, todo.completed);
           return {
             ...todo,
             content: content ? content : todo.content
@@ -75,7 +76,7 @@ class TodoList extends Component {
         key={todo.id}
         id={todo.id}
         content={todo.content}
-        complete={todo.complete}
+        completed={todo.completed}
         toggleTodo={this.toggleTodo}
         removeTodo={this.removeTodo}
         updateTodo={this.updateTodo}

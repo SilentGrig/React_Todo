@@ -33,7 +33,7 @@ class Todo extends Component {
   handleChangeText(e) {
     this.setState({
       ...this.state,
-      text: e.target.value
+      content: e.target.value
     })
   }
 
@@ -66,7 +66,7 @@ class Todo extends Component {
       output = (
         <>
           <p
-            className={this.props.complete ? "Todo-Complete" : ""}
+            className={this.props.completed ? "Todo-Completed" : ""}
             onClick={this.handleToggle}
           >
             {this.props.content}

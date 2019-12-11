@@ -15,8 +15,13 @@ const addTodo = (content) => {
     return axios.post(BASE_URL, {content: content});
 }
 
+const updateTodo = (id, content, completed) => {
+    return axios.put(BASE_URL + id, {content: content, completed: completed})
+}
+
 export default {
     getAllTodos: getAllTodos,
     deleteTodo: deleteTodo,
-    addTodo: addTodo
+    addTodo: addTodo,
+    updateTodo: updateTodo
 };

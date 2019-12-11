@@ -5,7 +5,8 @@ class NewTodoForm extends Component {
   constructor() {
     super();
     this.state = { 
-        content: ""
+        content: "",
+        completed: false
       };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeContent = this.handleChangeContent.bind(this);
