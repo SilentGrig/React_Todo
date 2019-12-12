@@ -19,6 +19,10 @@
   opacity: 0.5;
 }
 
+.Todo-Editing {
+  display: flex;
+}
+
 .Todo-Editing input {
   height: 3em;
 }
@@ -26,6 +30,7 @@
 .Todo-Editing input[type='text'] {
   padding: 1em 2em;
   box-sizing: border-box;
+  flex-grow: 2;
 }
 
 .Todo-Editing input[type='submit'] {
